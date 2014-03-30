@@ -1,0 +1,33 @@
+#content h1 {
+  font-size: 150%;
+  text-align: center;
+}
+
+#content h2 {
+  font-size: 130%;
+}
+
+#content p {
+  text-align: justify;
+}
+
+#content p.author {
+  color: #666;
+  font-family: Georgia, Times, serif;
+  font-style: italic;
+  text-align: center;
+}
+
+#content p.code {
+  background-color: #eee;
+  border: dashed 2px #bbb;
+  color: #222;
+  font-family: monospace;
+  margin: auto 4em;
+  padding: 1em 2em;
+  white-space: pre;
+}
+
+#content p.code b, #content p.code em {
+  color: #369;
+}
