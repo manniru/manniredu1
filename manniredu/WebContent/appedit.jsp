@@ -32,7 +32,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 	ap.setPin(pin);
 	ap.setUsername(username);
 	ap.setPassword(password);
-	
+	// TODO sadiq will do this function
 	ap.setMobileno(request.getParameter("mobileno"));
 	ap.setEmail(request.getParameter("email"));
 	ap.setFirstname(request.getParameter("firstname").toUpperCase());
@@ -52,7 +52,6 @@ else { ap = (Application) db.get(new Application(), 1); }
 	
 	if(id==0) { db.save(ap); System.out.println("Record Saved!"); }
 	else { db.update(ap); System.out.println("Record Updated!"); }
-	
 
 	session.setAttribute("username", username);
 	session.setAttribute("password", password);
