@@ -48,7 +48,8 @@ else { ap = (Application) db.get(new Application(), 1); }
 	ap.setGrade(request.getParameter("grade"));
 	ap.setProgram(request.getParameter("program"));
 	ap.setAdmission("");
-	ap.setDateapp(cdate);	
+	ap.setDateapp(cdate);
+	ap.setRole("applicant");
 	
 	if(id==0) { db.save(ap); System.out.println("Record Saved!"); }
 	else { db.update(ap); System.out.println("Record Updated!"); }
@@ -56,7 +57,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 
 	session.setAttribute("username", username);
 	session.setAttribute("password", password);
-	//session.setAttribute("usertype", "APP");
+	session.setAttribute("role", "applicant");
 	response.setStatus(response.SC_MOVED_TEMPORARILY); 
 	response.setHeader("Location", "/appview.jsp?id="+nextid);
 	// else  { response.setStatus(response.SC_MOVED_TEMPORARILY); response.setHeader("Location", "appedit.jsp?msg=Invalid Pincode, try again!"); }

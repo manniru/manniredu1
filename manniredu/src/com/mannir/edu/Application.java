@@ -21,6 +21,7 @@ public class Application {
 	public String program;
 	public String admission;
 	public String dateapp;
+	public String role;
 	public int getId() {
 		return id;
 	}
@@ -141,5 +142,11 @@ public class Application {
 	public void setDateapp(String dateapp) {
 		this.dateapp = dateapp;
 	}
-
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 }

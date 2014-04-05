@@ -50,8 +50,3 @@ public int getAdm(int uid) {
 	try { uid = Integer.parseInt(session.getAttribute("uid").toString()); } catch(Exception e) { System.out.println(e); }
 }
 %>
-<%
-System.out.println("hi"+getAdm(2));
-System.out.println("hi2"+getAdm(3));
-
-%>

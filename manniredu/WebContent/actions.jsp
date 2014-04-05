@@ -29,8 +29,8 @@ Connection conn = DriverManager.getConnection(url);
 		pass2 = rs.getString("password");
 		role = rs.getString("role");
 		
-		//System.out.println(user1+"="+user2);
-		//System.out.println(pass1+"="+pass2);
+		System.out.println(user1+"="+user2);
+		System.out.println(pass1+"="+pass2);
 	} catch(Exception e) { System.out.println(e); }
 	
 	if(user1.equals(user2) && pass1.equals(pass2)) {

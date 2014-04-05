@@ -152,7 +152,8 @@ else { ap = (Application) db.get(new Application(), 1); }
 
 <fieldset id='f2' class='collapsible'><legend>Program Registration</legend>
 <div class="form-item">
-<div style="float:left;margin-right:2px;"><label>Application Pin</label><input type="text" name="apppin" id="apppin" size="20" value="<%= ap.getPin() %>" class="form-text" /></div>
+<div style="float:left;margin-right:2px;">
+  <label>Application Pin</label><input type="text" name="apppin" id="apppin" size="20" value="<%= ap.getPin() %>" class="form-text" /></div>
 <div style="float:left;margin-right:2px;"><label>Select Program</label>
 <select name="program" class="form-select" id="program" ><option value="<%= ap.getProgram() %>" selected="selected"><%= ap.getProgram() %></option>
 <% for(String st: db.list("program")) { out.println("<option value='"+st+"'>"+st+"</option>"); } %></select></div></div></fieldset>

@@ -17,7 +17,7 @@ com.mannir.edu.Registration,
 java.sql.ResultSetMetaData"
 %>
 <% if(request.getParameter("generateexcel") != null) {
-	System.out.println("hi");
+	//System.out.println("hi");
 }
 
 
