@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.derby.drda.NetworkServerControl;
 
 public class Db {
@@ -312,8 +313,8 @@ public class Db {
 		for(Field s : fl) {
 			if(n>1) {
 			String nm = s.getName();
-			String vl = s.get(obj).toString();
-			try {ps.setString(n-1, vl);} catch(Exception e1) { ps.setInt(n-1, 1);  System.out.println(e1); } 
+			String vl = (String) s.get(obj);
+			try {ps.setString(n-1, vl);} catch(Exception e1) { ps.setInt(n-1, 1);  System.out.println("db.save()"+e1); } 
 			}
 			n++;
 		}
@@ -397,6 +398,47 @@ public class Db {
 		System.out.println(sql);
 		} catch(Exception e) { System.out.println(e); }
 		
+	}
+	
+	public void sop(Object obj) {
+		String tb = obj.getClass().getSimpleName().toLowerCase();
+		try {
+		Field[] fl = Class.forName(obj.getClass().getName()).getFields();
+		//System.out.println(s.getName()); 
+		StringBuffer sb = new StringBuffer();
+		sb.append("INSERT INTO "+tb + "(");
+		int n1=1;
+		for(Field s : fl) {
+			System.out.println(s.getName()+"="+s.get(obj));
+			//if(n1>1) { sb.append(s.getName()+","); }
+//			/n1++;
+		}
+		/**
+		sb.append(")");
+		sb.deleteCharAt(sb.length()-2);
+		sb.append(" VALUES(");
+		for(int a=1;a<=n1-2;a++) { sb.append("?,"); }
+		sb.deleteCharAt(sb.length()-1).toString();
+		sb.append(")");
+		
+		String sql = sb.toString(); //"INSERT INTO "+tb + "(pin, type, amount) VALUES" + "(?,?,?)";
+		System.out.println(sql);
+		PreparedStatement ps = cn.prepareStatement(sql);
+		
+		int n=1;
+		for(Field s : fl) {
+			if(n>1) {
+			String nm = s.getName();
+			String vl = s.get(obj).toString();
+			try {ps.setString(n-1, vl);} catch(Exception e1) { ps.setInt(n-1, 1);  System.out.println("db.save()"+e1); } 
+			}
+			n++;
+		}
+
+
+		ps .executeUpdate();
+		*/
+		} catch(Exception e) { System.out.println(e); }
 	}
 
 }

@@ -54,9 +54,9 @@
 <li class="menu-116"><a href="#" title="Schools">Schools</a></li>
 <li class="menu-117"><a href="#" title="Departments">Departments</a></li>
 <li class="menu-118"><a href="#" title="Programmes">Programmes</a></li>
-<li class="menu-119"><a href="#" title="New Application">New Application</a></li>
+<li class="menu-119"><a href="appedit.jsp" title="New Application">New Application</a></li>
 <li class="menu-120"><a href="#" title="New Registration">New Registration</a></li>
-<li class="menu-121"><a href="#" title="Admission Requirments">Admission Requirments</a></li>
+<li class="menu-121"><a href="#" title="Admission Requirments">Admission Requirements</a></li>
 <li class="menu-122"><a href="#" title="Admission List">Admission List</a></li>
 <li class="menu-123"><a href="#" title="Contact us">Contact us</a></li>
 </ul>
@@ -214,7 +214,6 @@ else {
 		
 		</div>
 		
-		<center>Current Date time: Fri Jun 21 14:04:44 UTC 2013</center>
 		
       </div>
 				</div>

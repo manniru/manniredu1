@@ -1,7 +1,7 @@
 package com.mannir.edu;
 
 public class Users {
-	public String uid;
+	public int id;
 	public String pin;
 	public String username;
 	public String password;
@@ -22,11 +22,11 @@ public class Users {
 	public String program;
 	public String admission;
 	public String dateapp;
-	public String getUid() {
-		return uid;
+	public int getId() {
+		return id;
 	}
-	public void setUid(String uid) {
-		this.uid = uid;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getPin() {
 		return pin;
@@ -148,6 +148,5 @@ public class Users {
 	public void setDateapp(String dateapp) {
 		this.dateapp = dateapp;
 	}
-
 	
 }

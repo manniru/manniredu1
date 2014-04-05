@@ -56,6 +56,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 
 	session.setAttribute("username", username);
 	session.setAttribute("password", password);
+	session.setAttribute("role", "applicant");
 	//session.setAttribute("usertype", "APP");
 	response.setStatus(response.SC_MOVED_TEMPORARILY); 
 	response.setHeader("Location", "/appview.jsp?id="+nextid);

@@ -56,6 +56,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 
 	session.setAttribute("username", username);
 	session.setAttribute("password", password);
+	session.setAttribute("role", "applicant");
 	//session.setAttribute("usertype", "APP");
 	response.setStatus(response.SC_MOVED_TEMPORARILY); 
 	response.setHeader("Location", "/appview.jsp?id="+nextid);
@@ -80,18 +81,29 @@ else { ap = (Application) db.get(new Application(), 1); }
 <form action=""  accept-charset="UTF-8" method="post" id="webform-client-form-11" class="webform-client-form">
 <div><fieldset id="f1">
 <legend><b>Application Form</b></legend><div id="webform-component-account-information--account-info" class="webform-layout-box horiz"><div class="webform-component webform-component-textfield" id="webform-component-account-information--account-info--application-pin"><div class="form-item" id="edit-submitted-account-information-account-info-application-pin-wrapper">
-<div style="float:left;margin-right:2px;"><label>Application PIN</label><input type="text" name="pin" id="pin" size="20" value="<%= ap.getPin() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Username</label><input type="text" name="username" id="username" size="20" value="<%= ap.getUsername() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Password</label><input type="text" name="password" id="password" size="20" value="<%= ap.getPassword() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Mobile No</label><input type="text" name="mobileno" id="mobileno" size="20" value="<%= ap.getMobileno() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Email</label><input type="text" name="email" id="email" size="20" value="<%= ap.getEmail() %>" class="form-text" /></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="pin" value="Pin Number" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="username" value="Username" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="password" value="Password" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="mobileno" value="Mobile No" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="email" value="Email" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
 <div style="clear:both"></div><br>
-<div style="float:left;margin-right:2px;"><label>Firstname</label><input type="text" name="firstname" id="firstname" size="20" value="<%= ap.getFirstname() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Lastname</label><input type="text" name="lastname" id="lastname" size="20" value="<%= ap.getLastname() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Gender</label><select name="gender" class="form-select" id="gender">
-<option value="<%= ap.getGender() %>" selected="selected"><%= ap.getGender() %></option><option value="M">Male</option><option value="F">Female</option></select></div>
-<div style="float:left;margin-right:2px;"><label>Date or Birth</label><input type="text" name="dob" id="dob" size="20" value="<%= ap.getDob() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Upload your Picture</label><input type="file" name="picture"  class="form-file" id="picture" size="40" /></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="firstname" value="First Name" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="lastname" value="Last Name" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="gender" value="Gender" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="dob" value="Date of Birth" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="file" name="picture" value="Picture" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="clear:both"></div><br>
+<div style="float:left;margin-right:2px;"><input type="text" name="address" value="Address" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="city" value="City" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="country" value="Country" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="schoolinfo" value="School Information" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="examinfo" value="Examination Information" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="clear:both"></div><br>
+<div style="float:left;margin-right:2px;"><input type="text" name="address" value="Address" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="city" value="City" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="country" value="Country" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="programme" value="Programme" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
+<div style="float:left;margin-right:2px;"><input type="text" name="dateapp" value="04-05-2014" onfocus="if(this.value==this.defaultValue)this.value=''" onblur="if(this.value=='')this.value=this.defaultValue"></div>
 <div style="clear:both"></div><br>
 <div style="float:left;margin-right:2px;"><label>Address</label><input type="text" name="address" id="address" size="20" value="<%= ap.getAddress() %>" class="form-text" /></div>
 <div style="float:left;margin-right:2px;"><label>State</label><input type="text" name="state" id="state" size="20" value="<%= ap.getState() %>" class="form-text" /></div>

@@ -2,4 +2,4 @@ eclipse.preferences.version=1
 gaeDoJarClasses=false
 gaeEnableJarSplitting=true
 gaeRetainStagingDirectory=false
-validationExclusions=src/com/mannir/snippets/|src/com/mannir/server/
+validationExclusions=src/com/mannir/snippets/|src/com/mannir/server/|src/com/mannir/excel/
