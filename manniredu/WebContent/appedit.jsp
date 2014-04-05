@@ -55,6 +55,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 	else { db.update(ap); System.out.println("Record Updated!"); }
 	
 
+	session.setAttribute("uid", db.getlastid("application"));
 	session.setAttribute("username", username);
 	session.setAttribute("password", password);
 	session.setAttribute("role", "applicant");

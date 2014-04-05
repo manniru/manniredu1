@@ -1,31 +1,5 @@
 <%@include file="manniredu.jsp" %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <% if(request.getParameter("q") != null && request.getParameter("q").equals("logout")) {
 	session.setAttribute("role", null);
 	session.setAttribute("username", null);
@@ -203,7 +177,7 @@ else {
 			"<li class='leaf'><a href='appview.jsp?id="+uid+"'>View Application</a></li>"+
 			"<li class='leaf'><a href='apppdf.jsp?id="+uid+"' target='new'>Print Application</a></li>"+
 			"<li class='leaf'><a href='admpdf.jsp?id="+uid+"' target='new'>Print Admission</a></li>"+
-			"<li class='leaf'><a href='useredit.jsp?id="+uid+"'>Course Registration</a></li>"+
+			"<li class='leaf'><a href='useredit.jsp?id="+session.getAttribute("uid")+"'>Course Registration</a></li>"+
 			"<li class='leaf last'><a href='?q=logout'>Log out</a></li></ul>");
 	}
 

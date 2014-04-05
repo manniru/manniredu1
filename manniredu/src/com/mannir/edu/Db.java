@@ -27,9 +27,9 @@ public class Db {
 		//Db db = new Db("emb","localhost","admin","13131","manniredu");
 		Db db = new Db("mysql","localhost","root","","manniredu");
 		
-		for(Registration rg : db.getAllRegistration()) {
-			System.out.println(rg.getRid());
-		}
+		System.out.println(db.getlastid("application"));
+		
+		//for(Registration rg : db.getAllRegistration()) { System.out.println(rg.getRid()); }
 		
 		
 		
@@ -439,6 +439,16 @@ public class Db {
 		ps .executeUpdate();
 		*/
 		} catch(Exception e) { System.out.println(e); }
+	}
+	
+	public int getlastid(String tb) {
+		int rt = 0;
+		try { ResultSet rs = cn.createStatement().executeQuery("SELECT MAX(id) AS maxid FROM "+tb); rs.next();
+			rt = Integer.parseInt(rs.getString("maxid"));
+		
+		} catch(Exception e) { System.out.println(e); }
+		
+		return rt;
 	}
 
 }

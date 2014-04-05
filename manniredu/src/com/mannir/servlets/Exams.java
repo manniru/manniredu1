@@ -65,6 +65,10 @@ public class Exams extends HttpServlet {
 	public String id="", uid="", pincode="", regno="", password="", mobileno="", fullname="", school="", department="", programme="", session="", courses1="", courses2="", bankname="", tellerno="", amount="", datereg="", mail="", created="", filename="";
 	private Connection cn;
 	
+	public static void main(String[] args) {
+		System.out.println("hi");
+	}
+	
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	response.setContentType("application/vnd.ms-excel");
         response.setHeader("Content-Disposition", "attachment; filename=ExamRecords.xls");
@@ -317,293 +321,7 @@ public class Exams extends HttpServlet {
 	        wb.write(out);	out.flush();	out.close();    
 		    System.out.println("Excel written successfully..");	    
 		} catch(Exception e) { System.out.println(e); }
-		     
-	
-    	
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	/**
-    	///String path = request.getPathInfo();
-    	///String id = path.substring(1);
-    	///System.out.println(id);
-    	///System.out.println(getServletContext().getMajorVersion());
-    	///String regno = "99999";
-    ///	String courses1 = "ENG011,ENG012,ENG013,LIT011,LIT012,ISS011,ISS012,ISS013,ISS014,MAT011,MAT012,BED121,BED112,CHE111,CHE112,";
-    	///String courses2 =  "BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,BEA311,";
-    	
-    	String id = request.getParameter("id");
-    	
-    	//System.out.println(getServletContext().getServerInfo());
-    	if(getServletContext().getMajorVersion()==3) {
-    		try {       	
-			cn = DriverManager.getConnection("jdbc:derby://localhost:1527/agpdb", "admin", "13131");
-			//PreparedStatement ps = cn.prepareStatement("SELECT * FROM ADMIN.APPLICATION WHERE UID='"+uid+"'");
-			ResultSet rs = cn.createStatement().executeQuery("SELECT * FROM REG WHERE UID="+id); rs.next();        	
-			id = rs.getString("id");
-			uid = rs.getString("uid");
-			pincode = rs.getString("pincode");
-			regno = rs.getString("regno");
-			password = rs.getString("password");
-			mobileno = rs.getString("mobileno");
-			fullname = rs.getString("fullname");
-			school = rs.getString("school");
-			department = rs.getString("department");
-			programme = rs.getString("programme");
-			session = rs.getString("session");
-			courses1 = rs.getString("courses1");
-			courses2 = rs.getString("courses2");
-			bankname = rs.getString("bankname");
-			tellerno = rs.getString("tellerno");
-			amount = rs.getString("amount");
-			datereg = rs.getString("datereg");
-			mail = rs.getString("mail");
-			created = rs.getString("created");
-			filename = rs.getString("filename");		
-    		} catch(Exception e1) { System.out.println(e1); }
-    	}
-    	else { 
-
-			DatastoreService ds = DatastoreServiceFactory.getDatastoreService();	
-			int kid = Integer.parseInt(id);
-			Key ky = KeyFactory.createKey("REG", kid);	
-			try {
-			Entity result = ds.get(ky);			
-			//id = (String) result.getProperty("id");
-			uid = (String) result.getProperty("uid");
-			pincode = (String) result.getProperty("pincode");
-			regno = (String) result.getProperty("regno");
-			password = (String) result.getProperty("password");
-			mobileno = (String) result.getProperty("mobileno");
-			fullname = (String) result.getProperty("fullname");
-			school = (String) result.getProperty("school");
-			department = (String) result.getProperty("department");
-			programme = (String) result.getProperty("programme");
-			session = (String) result.getProperty("session");
-			courses1 = (String) result.getProperty("courses1");
-			courses2 = (String) result.getProperty("courses2");
-			bankname = (String) result.getProperty("bankname");
-			tellerno = (String) result.getProperty("tellerno");
-			amount = (String) result.getProperty("amount");
-			datereg = (String) result.getProperty("datereg");
-			mail = (String) result.getProperty("mail");
-			created = (String) result.getProperty("created");
-			filename = (String) result.getProperty("filename");
-			} catch(Exception e) { System.out.println(); }
-    		}
-    	
-    	//if(application.getMajorVersion()==3) { }
-        try {
-        	Document document = new Document(PageSize.A4, 15f, 15f, 15f, 15f);   
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PdfWriter.getInstance(document, baos);
-            document.open();
-            
-            ServletContext cntx= getServletContext();
-            
-            //String mime = cntx.getMimeType(filename);
-            
-            Image logo = Image.getInstance(cntx.getRealPath("images/logo.png"));
-            logo.setAbsolutePosition(20f, 735f);
-            logo.scaleAbsolute(80f, 90f);
-            
-            Image photo = Image.getInstance(cntx.getRealPath("images/nopic.jpg"));
-            photo.setAbsolutePosition(490f, 735f);
-            photo.scaleAbsolute(80f, 90f);
-            
-            Paragraph p1 = new Paragraph("",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18));
-            p1.add("ABDU GUSAU POLYTECHNIC");
-            p1.add(Chunk.NEWLINE);
-            p1.add("TALATA-MAFARA, ZAMFARA STATE");
-            p1.add(Chunk.NEWLINE);
-            p1.add(" ");
-            p1.add("ONLINE EXAMINATION RESULTS");
-            p1.setAlignment(Element.ALIGN_CENTER);
-            
-
-
-            
-            Paragraph tt1 = new Paragraph("STUDENT INFORMATION",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10));
-            Paragraph tt2 = new Paragraph("FIRST SEMESTER RESULTS",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10));
-            Paragraph tt3 = new Paragraph("SECOND SEMESTER RESULTS",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10));
-            Paragraph tt4 = new Paragraph("CREDITS UNIT INFORMATION",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10));
-            Paragraph tt5 = new Paragraph("PROGRAMMES INFORMATION",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10));
-            Paragraph tt6 = new Paragraph("RESULT INFORMATION",FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10));
-            tt1.setAlignment(Element.ALIGN_CENTER);
-            tt2.setAlignment(Element.ALIGN_CENTER);
-            tt3.setAlignment(Element.ALIGN_CENTER);
-            tt4.setAlignment(Element.ALIGN_CENTER);
-            tt5.setAlignment(Element.ALIGN_CENTER);
-            tt6.setAlignment(Element.ALIGN_CENTER);
-            
-            PdfPTable tb1 = new PdfPTable(2);
-          // for(int i=1;i<=20;i++) { tb1.addCell(new PdfPCell(new Paragraph(rs.getString(i)))); }
-            tb1.addCell(new PdfPCell(new Phrase("Table ID: " + id)));
-            tb1.addCell(new PdfPCell(new Phrase("User ID: " + uid)));
-            tb1.addCell(new PdfPCell(new Phrase("Registration No: " + regno)));
-            tb1.addCell(new PdfPCell(new Phrase("Fullname: " + fullname)));
-            tb1.addCell(new PdfPCell(new Phrase("School: " + school)));
-            tb1.addCell(new PdfPCell(new Phrase("Department: " + department)));
-            tb1.addCell(new PdfPCell(new Phrase("Programme: " + programme)));
-            tb1.addCell(new PdfPCell(new Phrase("Session: " + session)));
-            tb1.addCell(new PdfPCell(new Phrase("Bank Name: " + bankname)));
-            tb1.addCell(new PdfPCell(new Phrase("Teller Number: " + tellerno)));
-            tb1.addCell(new PdfPCell(new Phrase("Amount Paid: " + amount)));
-            tb1.addCell(new PdfPCell(new Phrase("PIN Sn: " + pincode)));
-            tb1.addCell(new PdfPCell(new Phrase("PIN Code: " + pincode)));
-            tb1.addCell(new PdfPCell(new Phrase("Mobile Number: " + mobileno)));
-            tb1.addCell(new PdfPCell(new Phrase("Date Registered: " + datereg)));
-            tb1.addCell(new PdfPCell(new Phrase("Time Stamp: " + created)));        
-           tb1.setWidthPercentage(100);
-           tb1.setSpacingBefore(5f);
-           //tb1.setSpacingAfter(5f);
-           
-           String[] c1 = courses1.split(",");
-           String[] c2 = courses2.split(",");
-           
-  
-           
-
-           
-           
-           
-
-           
-           
-           
-           PdfPTable t1 = new PdfPTable(new float[] { 1, 2, 7, 1, 1, 1, 1, 1, 1, 1, 1 });
-           t1.setWidthPercentage(100f);
-           t1.getDefaultCell().setUseAscender(true);
-           t1.getDefaultCell().setUseDescender(true);
-           t1.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
-           //for (int i = 0; i < 1; i++) {
-               t1.addCell("SN");
-               t1.addCell("Course");
-               t1.addCell("Course Title");
-               t1.addCell("CU");
-               t1.addCell("CA");
-               t1.addCell("Exm");
-               t1.addCell("Total");
-               t1.addCell("Grd");
-               t1.addCell("Point");
-               t1.addCell("GP");
-               t1.addCell("Rm");
-          // }
-           t1.getDefaultCell().setBackgroundColor(null);
-           //t1.setHeaderRows(2);
-           //t1.setFooterRows(1);
-
-           for (int i=0;i<c1.length;i++) {
-               //movie = screening.getMovie();
-               t1.addCell(""+(i+1));
-               t1.addCell(c1[i]);
-               t1.addCell(course(c1[i],"title"));
-               t1.addCell(course(c1[i],"cu"));
-               t1.addCell(course(c1[i],"status"));
-               t1.addCell(course(c1[i],"status"));
-               t1.addCell(course(c1[i],"status"));
-               t1.addCell(course(c1[i],"status"));
-               t1.addCell(course(c1[i],"status"));
-               t1.addCell(course(c1[i],"status"));
-               t1.addCell(course(c1[i],"status"));
-             //  table.addCell(String.valueOf(movie.getYear()));
-           }
- 
-           PdfPTable t2 = new PdfPTable(new float[] { 1, 2, 7, 1, 1, 1, 1, 1, 1, 1, 1 });
-           t2.setWidthPercentage(100f);
-           t2.getDefaultCell().setUseAscender(true);
-           t2.getDefaultCell().setUseDescender(true);
-           t2.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
-          // for (int i = 0; i < 2; i++) {
-           t2.addCell("SN");
-           t2.addCell("Course");
-           t2.addCell("Course Title");
-           t2.addCell("CU");
-           t2.addCell("CA");
-           t2.addCell("Exm");
-           t2.addCell("Total");
-           t2.addCell("Grd");
-           t2.addCell("Point");
-           t2.addCell("GP");
-           t2.addCell("Rm");
-         //  }
-          t2.getDefaultCell().setBackgroundColor(null);
-         //  t2.setHeaderRows(2);
-         //  t2.setFooterRows(1);
-
-           for (int i=0;i<c2.length;i++) {
-               //movie = screening.getMovie();
-               t2.addCell(""+(i+1));
-               t2.addCell(c2[i]);
-               t2.addCell(course(c2[i],"title"));
-               t2.addCell(course(c2[i],"cu"));
-               t2.addCell(course(c1[i],"status"));
-               t2.addCell(course(c1[i],"status"));
-               t2.addCell(course(c1[i],"status"));
-               t2.addCell(course(c1[i],"status"));
-               t2.addCell(course(c1[i],"status"));
-               t2.addCell(course(c1[i],"status"));
-               t2.addCell(course(c1[i],"status"));             //  table.addCell(String.valueOf(movie.getYear()));
-           }
-           
-           t1.setSpacingBefore(3f);
-           
-           t2.setSpacingBefore(3f);
-
-           
-
-           PdfPTable tb4 = new PdfPTable(2);
-         // for(int i=1;i<=20;i++) { tb1.addCell(new PdfPCell(new Paragraph(rs.getString(i)))); }
-           tb4.addCell(new PdfPCell(new Phrase("First Semester Total Credits: " + "")));
-           tb4.addCell(new PdfPCell(new Phrase("Second Semester Total Credits: " + "")));
-           tb4.addCell(new PdfPCell(new Phrase("First Semester Total Points: " + "")));
-           tb4.addCell(new PdfPCell(new Phrase("Second Semester Total Points: " + "")));
-           tb4.addCell(new PdfPCell(new Phrase("First Semester Total Grade Points: " + programme)));
-           tb4.addCell(new PdfPCell(new Phrase("Second Semester Total Grade Points: " + session)));
-           tb4.addCell(new PdfPCell(new Phrase("First Semester GPA: " + amount)));
-           tb4.addCell(new PdfPCell(new Phrase("Second Semester GPA: " + "")));
-           tb4.addCell(new PdfPCell(new Phrase("Current GPA: " + pincode)));
-           tb4.addCell(new PdfPCell(new Phrase("Remarks: " + mobileno)));    
-           tb4.setWidthPercentage(100);
-           tb4.setSpacingBefore(5f);
-           
-           document.add(p1);
-           document.add(logo);  
-           document.add(photo);
-           document.add(tt1);         
-           document.add(tb1);
-           document.add(tt2);
-           document.add(t1);
-           document.add(tt3);
-           document.add(t2);
-           document.add(tt6);
-           document.add(tb4);
-            
-     
-           
-document.add(new Phrase("ABDU GUSAU POLYTECHNIC TALATA MAFARA, ZAMFARA STATE [Cloud System Developed by: MANNIR ESYSTEMS LIMITED 2011-2013 (www.mannir.net)]", FontFactory.getFont(FontFactory.TIMES, 8)));           
-            document.close();            
-            response.setHeader("Expires", "0");
-            response.setHeader("Cache-Control","must-revalidate, post-check=0, pre-check=0");
-            response.setHeader("Pragma", "public");
-            response.setContentType("application/pdf");
-            response.setContentLength(baos.size());
-            OutputStream os = response.getOutputStream();
-            baos.writeTo(os);
-            os.flush();
-            os.close();
-        }
-        catch(Exception e3) { System.out.println(e3); }
-       // }
-
-
-*/
 
     }
 
@@ -646,5 +364,61 @@ document.add(new Phrase("ABDU GUSAU POLYTECHNIC TALATA MAFARA, ZAMFARA STATE [Cl
     	vl = r.getString(tp);
     	} catch (Exception e3) {System.out.println(e3); }
     	return vl;
+    }
+    
+    public static void export(HttpServletRequest request, HttpServletResponse response) {
+    	System.out.println("Hi");
+    	
+    	response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=ExamResults.xls");
+        
+		HSSFWorkbook wb = new HSSFWorkbook();
+		HSSFSheet sh = wb.createSheet("ExamResults");
+		Map<String, Object[]> data = new HashMap<String, Object[]>();
+		data.put("1", new Object[] {"ID", "REGNO", "CODE", "CW", "EXAM"});
+		
+		
+		///////////////////////////////////////////////////////////
+		Db db = new Db("mysql","localhost","root","","manniredu");
+		int sn = 2;
+		for(Registration rg : db.getAllRegistration()) {
+			data.put(sn+"", new Object[] {rg.getRid(), rg.getAid(), rg.getCode(), "", ""});
+
+			sn++;
+			
+		}
+		//////////////////////////////////////////////////////////
+		
+		Object[] records = new Object[5];
+        
+    			  ///  }
+    			    //file.close();
+    			   // FileOutputStream out =  new FileOutputStream(new File("test.xls"));
+    			  //  workbook.write(out);
+    			    //out.close();
+    	 
+		Set<String> keyset = data.keySet();
+		int rownum = 0;
+		for (String key : keyset) {
+		    Row row = sh.createRow(rownum++);
+		    Object [] objArr = data.get(key);
+		    int cellnum = 0;
+		    for (Object obj : objArr) {
+		        Cell cell = row.createCell(cellnum++);
+		        if(obj instanceof Date) cell.setCellValue((Date)obj);
+		        else if(obj instanceof Boolean) cell.setCellValue((Boolean)obj);
+		        else if(obj instanceof String)  cell.setCellValue((String)obj);
+		        else if(obj instanceof Double) cell.setCellValue((Double)obj);
+		    }
+		}
+		 
+		try {
+			// FileOutputStream out = new FileOutputStream(new File("new.xls"));
+		    // wb.write(out); out.close();		    
+	        ServletOutputStream out = response.getOutputStream();
+	        wb.write(out);	out.flush();	out.close();    
+		    System.out.println("Excel written successfully..");	    
+		} catch(Exception e) { System.out.println(e); }
+
     }
 }

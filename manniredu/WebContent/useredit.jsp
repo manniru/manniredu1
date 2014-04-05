@@ -35,7 +35,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 		 String[] c1 = request.getParameterValues("courses1[]");
 		 for(String cs: c1) {
 			 try { cn.createStatement().executeUpdate("INSERT INTO registration(aid,pin,level,semester,code) VALUES("+
-		 uid+",'"+regpin+"',"+lv+","+sm+",'"+cs+"')");
+		 session.getAttribute("uid")+",'"+regpin+"',"+lv+","+sm+",'"+cs+"')");
 			 } catch(Exception e) { System.out.println(e); }
 			 //db.runSql(cn, "INSERT INTO registration(aid,pinid,code) VALUES("+uid+",'"+regpin+"','"+code+"')");
 		 }
