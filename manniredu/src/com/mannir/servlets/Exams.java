@@ -66,7 +66,7 @@ public class Exams extends HttpServlet {
 	private Connection cn;
 	
 	public static void main(String[] args) {
-		System.out.println("hi");
+		export();
 	}
 	
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -366,11 +366,11 @@ public class Exams extends HttpServlet {
     	return vl;
     }
     
-    public static void export(HttpServletRequest request, HttpServletResponse response) {
+    public static void export() {
     	System.out.println("Hi");
     	
-    	response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=ExamResults.xls");
+    	///response.setContentType("application/vnd.ms-excel");
+        ///response.setHeader("Content-Disposition", "attachment; filename=ExamResults.xls");
         
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sh = wb.createSheet("ExamResults");
@@ -413,9 +413,9 @@ public class Exams extends HttpServlet {
 		}
 		 
 		try {
-			// FileOutputStream out = new FileOutputStream(new File("new.xls"));
+			FileOutputStream out = new FileOutputStream(new File("Registrations.xls"));
 		    // wb.write(out); out.close();		    
-	        ServletOutputStream out = response.getOutputStream();
+	        ///ServletOutputStream out = response.getOutputStream();
 	        wb.write(out);	out.flush();	out.close();    
 		    System.out.println("Excel written successfully..");	    
 		} catch(Exception e) { System.out.println(e); }

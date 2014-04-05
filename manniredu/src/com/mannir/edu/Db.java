@@ -27,7 +27,19 @@ public class Db {
 		//Db db = new Db("emb","localhost","admin","13131","manniredu");
 		Db db = new Db("mysql","localhost","root","","manniredu");
 		
-		System.out.println(db.getlastid("application"));
+		Object[][] oo = db.regData("registration");
+				
+		for(int a=0; a<oo.length; a++) {
+		for(int i=0; i<oo[a].length; i++) { System.out.print(oo[a][i]+"\t"); }
+		System.out.println();
+		}
+		
+
+	}
+	
+	public void test4() {
+		
+		//System.out.println(db.getlastid("application"));
 		
 		//for(Registration rg : db.getAllRegistration()) { System.out.println(rg.getRid()); }
 		
@@ -52,7 +64,6 @@ public class Db {
 		//System.out.println(ap.getFirstname());
 		//System.out.println(ap.get("fullname"));
 		
-
 	}
 	
 	public void test3() {
@@ -450,5 +461,29 @@ public class Db {
 		
 		return rt;
 	}
-
+	
+	public static Object[][] regData(String tb) {
+		Object[][] oo = null;
+	
+		try {
+		Statement st2 = cn.createStatement();
+		ResultSet r3 = st2.executeQuery("SELECT * FROM "+tb);
+		ResultSetMetaData metaData = r3.getMetaData();
+		int colCount = metaData.getColumnCount();
+		ArrayList rows = new ArrayList();
+		Object[] row = null;
+		while (r3.next()) {
+		row = new Object[colCount];
+		for (int a = 0; a < colCount-1; a++) {
+		row[a] = r3.getObject(a + 1);
+		}
+		rows.add(row);
+		}
+		oo = (Object[][])rows.toArray(new Object[0][0]);
+		} catch(Exception e3) { System.out.println("regData()"+e3);
+		
+		}
+		return oo;
+	}
+	
 }
