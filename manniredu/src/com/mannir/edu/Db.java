@@ -276,12 +276,17 @@ public class Db {
 		try { ResultSet rs = cn.createStatement().executeQuery("SELECT * FROM REGISTRATION");
 			while(rs.next()) {
 				Registration rg = new Registration();
-				rg.setRid(Integer.parseInt(rs.getString("rid")));
-				rg.setAid(rs.getString("aid"));
-				rg.setPin(rs.getString("pin"));
-				rg.setCode(rs.getString("code"));
-				rg.setLevel(rs.getString("level"));
-				rg.setSemester(rs.getString("semester"));
+				rg.setId(Integer.parseInt(rs.getString("id")));
+				rg.setStudentid(rs.getString("studentid"));
+				rg.setStudentname(rs.getString("studentname"));
+				rg.setProgramme(rs.getString("programme"));
+				rg.setModule(rs.getString("module"));
+				rg.setUnits(rs.getString("units"));
+				//rg.setAid(rs.getString("aid"));
+				//rg.setPin(rs.getString("pin"));
+				//rg.setCode(rs.getString("code"));
+				//rg.setLevel(rs.getString("level"));
+				//rg.setSemester(rs.getString("semester"));
 				rg.setCw(rs.getString("cw"));
 				rg.setExam(rs.getString("exam"));
 				rg.setTotal(rs.getString("total"));

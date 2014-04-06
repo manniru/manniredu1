@@ -66,6 +66,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Exams extends HttpServlet {
@@ -78,10 +79,10 @@ public class Exams extends HttpServlet {
 	
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=ExamRecords.xls");
+        response.setHeader("Content-Disposition", "attachment; filename=ExamResults.xlsx");
         
-		HSSFWorkbook wb = new HSSFWorkbook();
-		HSSFSheet sh = wb.createSheet("ExamResults");
+        XSSFWorkbook wb = new XSSFWorkbook();
+		XSSFSheet sh = wb.createSheet("ExamResults");
 		Map<String, Object[]> data = new HashMap<String, Object[]>();
 		data.put("1", new Object[] {"Reg No.", "Fullname", "Course", "CU", "CA", "Exam", "Total", "Grade", "Point", "GP", "Remarks"});
         

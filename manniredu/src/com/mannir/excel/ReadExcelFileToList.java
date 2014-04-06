@@ -92,7 +92,7 @@ public class ReadExcelFileToList {
     }
  
     public static void main(String args[]){
-        List<Country> list = readExcelData("Sample.xlsx");
+        List<Country> list = readExcelData("ExamResults.xlsx");
         System.out.println("Country List\n"+list);
     }
  

@@ -65,8 +65,8 @@ if(request.getParameter("op1") != null) {
 
 <%
 out.println("<table class='sticky-enabled' style='width:90%'>"+
-		"<thead><tr><th class='select-all'></th><th>ID</th><th>UID</th><th>FULLNAME</th><th>MODULE</th><th>CW</th>"+
-		"<th>EXAM</th><th>TOTAL</th><th>GRADE</th><th>POINT</th><th>GP</th><th>REMARKS</th></tr></thead>"+
+		"<thead><tr><th>STUDENT ID</th><th>STUDENT NAME</th>"+
+		"<th>MODULE</th><th>CW</th><th>EXAM</th><th>TOTAL</th><th>GRADE</th><th>POINT</th><th>GP</th><th>REMARKS</th></tr></thead>"+
 		"<tbody>");
 
 Db db = new Db("mysql","localhost","root","","manniredu");
@@ -76,18 +76,20 @@ for(Registration rg : db.getAllRegistration()) {
 	if(m==1) { out.println("<tr class='odd'>"); }
 	else { out.println("<tr class='even'>"); }			
 	//out.println("<td style='border:1px solid black;'><input type='checkbox' name='id"+rg.getRid()+"' value='"+rg.getRid()+"' /></td>");
-	out.println("<td style='border:1px solid black;'>"+rg.getRid()+"</td>");
-	out.println("<td style='border:1px solid black;'>"+rg.getRid()+"</td>");
-	out.println("<td style='border:1px solid black;'>"+rg.getRid()+"</td>");
-	out.println("<td style='border:1px solid black;'>"+rg.getAid()+"</td>");
-	out.println("<td style='border:1px solid black;'>"+rg.getCode()+"</td>");
+	//out.println("<td style='border:1px solid black;'>"+rg.getId()+"</td>");
+	out.println("<td style='border:1px solid black;'>"+rg.getStudentid()+"</td>");
+	out.println("<td style='border:1px solid black;'>"+rg.getStudentname()+"</td>");
+	//out.println("<td style='border:1px solid black;'>"+rg.getProgramme()+"</td>");
+	//out.println("<td style='border:1px solid black;'>"+rg.getLevel()+"</td>");
+	//out.println("<td style='border:1px solid black;'>"+rg.getSemester()+"</td>");
+	out.println("<td style='border:1px solid black;'>"+rg.getModule()+"</td>");
 	out.println("<td style='border:1px solid black;'>"+rg.getCw()+"</td>");
 	out.println("<td style='border:1px solid black;'>"+rg.getExam()+"</td>");
 	out.println("<td style='border:1px solid black;'>"+rg.getTotal()+"</td>");
+	out.println("<td style='border:1px solid black;'>"+rg.getGrade()+"</td>");
 	out.println("<td style='border:1px solid black;'>"+rg.getPoint()+"</td>");
 	out.println("<td style='border:1px solid black;'>"+rg.getGp()+"</td>");
-	out.println("<td style='border:1px solid black;'>"+rg.getRid()+"</td>");
-	out.println("<td style='border:1px solid black;'>"+rg.getRid()+"</td>");
+	out.println("<td style='border:1px solid black;'>"+rg.getRemarks()+"</td>");
 	//out.println("<td style='border:1px solid black;'><a href='/appview.jsp?id="+rg.getRid()+"'>View</a> - <a href='/appedit.jsp?id="+rg.getRid()+"'>Edit</a> - <a href='/apppdf.jsp?id="+rg.getRid()+"' target='new'>Print</a></td>");
 	out.println("</tr>");
 	sn++;

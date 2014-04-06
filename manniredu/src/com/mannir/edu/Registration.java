@@ -1,43 +1,45 @@
 package com.mannir.edu;
 
 public class Registration {
-	public int rid;
-	public String aid;
-	public String pin;
-	public String code;
+	public int id;
+	public String studentid;
+	public String studentname;
+	public String programme;
 	public String level;
 	public String semester;
+	public String module;
+	public String units;
 	public String cw;
 	public String exam;
 	public String total;
 	public String grade;
 	public String point;
 	public String gp;
-	public String datereg;
 	public String remarks;
-	public int getRid() {
-		return rid;
+	public String datereg;
+	public int getId() {
+		return id;
 	}
-	public void setRid(int rid) {
-		this.rid = rid;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public String getAid() {
-		return aid;
+	public String getStudentid() {
+		return studentid;
 	}
-	public void setAid(String aid) {
-		this.aid = aid;
+	public void setStudentid(String studentid) {
+		this.studentid = studentid;
 	}
-	public String getPin() {
-		return pin;
+	public String getStudentname() {
+		return studentname;
 	}
-	public void setPin(String pin) {
-		this.pin = pin;
+	public void setStudentname(String studentname) {
+		this.studentname = studentname;
 	}
-	public String getCode() {
-		return code;
+	public String getProgramme() {
+		return programme;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setProgramme(String programme) {
+		this.programme = programme;
 	}
 	public String getLevel() {
 		return level;
@@ -50,6 +52,18 @@ public class Registration {
 	}
 	public void setSemester(String semester) {
 		this.semester = semester;
+	}
+	public String getModule() {
+		return module;
+	}
+	public void setModule(String module) {
+		this.module = module;
+	}
+	public String getUnits() {
+		return units;
+	}
+	public void setUnits(String units) {
+		this.units = units;
 	}
 	public String getCw() {
 		return cw;
@@ -87,17 +101,17 @@ public class Registration {
 	public void setGp(String gp) {
 		this.gp = gp;
 	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 	public String getDatereg() {
 		return datereg;
 	}
 	public void setDatereg(String datereg) {
 		this.datereg = datereg;
 	}
-	public String getRemarks() {
-		return remarks;
-	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}	
-	
+
 }
