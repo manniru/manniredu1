@@ -51,22 +51,29 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.mannir.edu.Db;
+import com.mannir.edu.Examrecords;
 import com.mannir.edu.Registration;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.PrintSetup;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Exams extends HttpServlet {
 	public String id="", uid="", pincode="", regno="", password="", mobileno="", fullname="", school="", department="", programme="", session="", courses1="", courses2="", bankname="", tellerno="", amount="", datereg="", mail="", created="", filename="";
 	private Connection cn;
 	
 	public static void main(String[] args) {
-		export();
+
 	}
 	
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -272,48 +279,83 @@ public class Exams extends HttpServlet {
     	System.out.println("Hi");
     	
     	response.setContentType("application/vnd.ms-excel");
-        response.setHeader("Content-Disposition", "attachment; filename=ExamResults.xls");
+        response.setHeader("Content-Disposition", "attachment; filename=ExamResults.xlsx");
         
-		HSSFWorkbook wb = new HSSFWorkbook();
-		HSSFSheet sh = wb.createSheet("ExamResults");
-		Map<String, Object[]> data = new HashMap<String, Object[]>();
-		data.put("1", new Object[] {"ID", "REGNO", "CODE", "CW", "EXAM"});
-		
-		
-		///////////////////////////////////////////////////////////
-		Db db = new Db("mysql","localhost","root","","manniredu");
-		int sn = 2;
-		for(Registration rg : db.getAllRegistration()) {
-			data.put(sn+"", new Object[] {rg.getRid(), rg.getAid(), rg.getCode(), "", ""});
+////////////////////////////////////////////////////////
+    	String[] titles = {"SN", "Student ID",	"Student Name", "Programme", "Level", "Semester", "Module", "Units", "CW", "EXAM"}; 	
+    	Db db = new Db("mysql","localhost","root","","manniredu");
+    	Object[][]  sample_data = db.regData("registration");
+        Workbook wb;
+        //if(args.length > 0 && args[0].equals("-xls")) 
+        	//wb = new HSSFWorkbook();else 
+        wb = new XSSFWorkbook();
+        Map<String, CellStyle> styles = createStyles(wb);
+        Sheet sheet = wb.createSheet("Examsheet");
+        PrintSetup printSetup = sheet.getPrintSetup();
+        printSetup.setLandscape(true);
+        sheet.setFitToPage(true);
+        sheet.setHorizontallyCenter(true);
 
-			sn++;
-			
-		}
-		//////////////////////////////////////////////////////////
-		
-		Object[] records = new Object[5];
-        
-    			  ///  }
-    			    //file.close();
-    			   // FileOutputStream out =  new FileOutputStream(new File("test.xls"));
-    			  //  workbook.write(out);
-    			    //out.close();
-    	 
-		Set<String> keyset = data.keySet();
-		int rownum = 0;
-		for (String key : keyset) {
-		    Row row = sh.createRow(rownum++);
-		    Object [] objArr = data.get(key);
-		    int cellnum = 0;
-		    for (Object obj : objArr) {
-		        Cell cell = row.createCell(cellnum++);
-		        if(obj instanceof Date) cell.setCellValue((Date)obj);
-		        else if(obj instanceof Boolean) cell.setCellValue((Boolean)obj);
-		        else if(obj instanceof String)  cell.setCellValue((String)obj);
-		        else if(obj instanceof Double) cell.setCellValue((Double)obj);
-		    }
-		}
-		 
+        //title row
+        Row titleRow = sheet.createRow(0);
+        titleRow.setHeightInPoints(30);
+        Cell titleCell = titleRow.createCell(0);
+        titleCell.setCellValue("Student Examination Records Sheet");
+        titleCell.setCellStyle(styles.get("title"));
+        sheet.addMergedRegion(CellRangeAddress.valueOf("$A$1:$J$1"));
+
+        //header row
+        Row headerRow = sheet.createRow(1);
+        headerRow.setHeightInPoints(20);
+        Cell headerCell;
+        for (int i = 0; i < titles.length; i++) {
+            headerCell = headerRow.createCell(i);
+            headerCell.setCellValue(titles[i]);
+            headerCell.setCellStyle(styles.get("header"));
+        }
+
+        int rownum = 2;
+        for (int i = 0; i < 10; i++) {
+            Row row = sheet.createRow(rownum++);
+            for (int j = 0; j < titles.length; j++) {
+                Cell cell = row.createCell(j);
+             
+                    cell.setCellStyle(styles.get("cell"));
+                
+            }
+        }
+
+
+
+        //set sample data
+        for (int i = 0; i < sample_data.length; i++) {
+            Row row = sheet.getRow(2 + i);
+            for (int j = 0; j < sample_data[i].length; j++) {
+                if(sample_data[i][j] == null) continue;
+
+                if(sample_data[i][j] instanceof String) { row.getCell(j).setCellValue((String)sample_data[i][j]); } 
+                else { try { row.getCell(j).setCellValue((Double)sample_data[i][j]); }
+                		catch(Exception e) { row.getCell(j).setCellValue((Integer)sample_data[i][j]); }
+                	}
+            }
+        }
+
+        //finally set column widths, the width is measured in units of 1/256th of a character width
+        sheet.setColumnWidth(0, 5*256); //30 characters wide
+        sheet.setColumnWidth(1, 20*256); //30 characters wide
+        sheet.setColumnWidth(2, 30*256); //30 characters wide
+        sheet.setColumnWidth(3, 20*256); //30 characters wide
+        sheet.setColumnWidth(4, 10*256); //30 characters wide
+        sheet.setColumnWidth(5, 10*256); //30 characters wide
+        //for (int i = 4; i < 9; i++) { sheet.setColumnWidth(i, 6*256); }
+        sheet.setColumnWidth(10, 10*256); //10 characters wide
+
+        // Write the output to a file
+        String file = "Examrecord.xls";
+        if(wb instanceof XSSFWorkbook) file += "x";
+       
+        //try { FileOutputStream out = new FileOutputStream(file); wb.write(out); out.close(); } catch(Exception e) { System.out.println(e); }
+//////////////////////////////////////////////////////////
 		try {
 			// FileOutputStream out = new FileOutputStream(new File("new.xls"));
 		    // wb.write(out); out.close();		    
@@ -366,59 +408,59 @@ public class Exams extends HttpServlet {
     	return vl;
     }
     
-    public static void export() {
-    	System.out.println("Hi");
-    	
-    	///response.setContentType("application/vnd.ms-excel");
-        ///response.setHeader("Content-Disposition", "attachment; filename=ExamResults.xls");
-        
-		HSSFWorkbook wb = new HSSFWorkbook();
-		HSSFSheet sh = wb.createSheet("ExamResults");
-		Map<String, Object[]> data = new HashMap<String, Object[]>();
-		data.put("1", new Object[] {"ID", "REGNO", "CODE", "CW", "EXAM"});
-		
-		
-		///////////////////////////////////////////////////////////
-		Db db = new Db("mysql","localhost","root","","manniredu");
-		int sn = 2;
-		for(Registration rg : db.getAllRegistration()) {
-			data.put(sn+"", new Object[] {rg.getRid(), rg.getAid(), rg.getCode(), "", ""});
+    private static Map<String, CellStyle> createStyles(Workbook wb){
+        Map<String, CellStyle> styles = new HashMap<String, CellStyle>();
+        CellStyle style;
+        Font titleFont = wb.createFont();
+        titleFont.setFontHeightInPoints((short)18);
+        titleFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFont(titleFont);
+        styles.put("title", style);
 
-			sn++;
-			
-		}
-		//////////////////////////////////////////////////////////
-		
-		Object[] records = new Object[5];
-        
-    			  ///  }
-    			    //file.close();
-    			   // FileOutputStream out =  new FileOutputStream(new File("test.xls"));
-    			  //  workbook.write(out);
-    			    //out.close();
-    	 
-		Set<String> keyset = data.keySet();
-		int rownum = 0;
-		for (String key : keyset) {
-		    Row row = sh.createRow(rownum++);
-		    Object [] objArr = data.get(key);
-		    int cellnum = 0;
-		    for (Object obj : objArr) {
-		        Cell cell = row.createCell(cellnum++);
-		        if(obj instanceof Date) cell.setCellValue((Date)obj);
-		        else if(obj instanceof Boolean) cell.setCellValue((Boolean)obj);
-		        else if(obj instanceof String)  cell.setCellValue((String)obj);
-		        else if(obj instanceof Double) cell.setCellValue((Double)obj);
-		    }
-		}
-		 
-		try {
-			FileOutputStream out = new FileOutputStream(new File("Registrations.xls"));
-		    // wb.write(out); out.close();		    
-	        ///ServletOutputStream out = response.getOutputStream();
-	        wb.write(out);	out.flush();	out.close();    
-		    System.out.println("Excel written successfully..");	    
-		} catch(Exception e) { System.out.println(e); }
+        Font monthFont = wb.createFont();
+        monthFont.setFontHeightInPoints((short)11);
+        monthFont.setColor(IndexedColors.WHITE.getIndex());
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setFont(monthFont);
+        style.setWrapText(true);
+        styles.put("header", style);
 
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setWrapText(true);
+        style.setBorderRight(CellStyle.BORDER_THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(CellStyle.BORDER_THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(CellStyle.BORDER_THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(CellStyle.BORDER_THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        styles.put("cell", style);
+
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
+        styles.put("formula", style);
+
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
+        styles.put("formula_2", style);
+
+        return styles;
     }
 }

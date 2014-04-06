@@ -10,24 +10,77 @@ import java.util.HashMap;
 import java.io.FileOutputStream;
 
 public class Examrecords {
-    private static final String[] titles = {
-            "SN", "Student ID",	"Student Name", "Programme", "Level", "Semester", "Module", "Units", "CW", "EXAM"};
-
-    private static Object[][] sample_data2 = {
-            {"1", "u1131819", "MUHAMMAD MANNIR AHMAD", "BSE", 1, "A", "SD3048", 28, null, null},
-            {"2", "u1012923", "ZAHRAU SHARU MAIGARI", "BSE", 1, "A", "SD3048", 17, null, null},
-            {"3", "U1132933", "JAHARA FERAS MACARABON", "BIS", 1, "A", "SD3048", 32, null, null},
-    };
-    
-    private static Object[][] sample_data = null;
-
+	
     public static void main(String[] args) throws Exception {
+    	String[] titles = {"SN", "Student ID",	"Student Name", "Programme", "Level", "Semester", "Module", "Units", "CW", "EXAM"}; 	
     	Db db = new Db("mysql","localhost","root","","manniredu");
-    	sample_data = db.regData("registration");
+    	Object[][]  sample_data = db.regData("registration");
+    	Examrecords.exports(titles, sample_data);
 		
+
+    }
+
+    private static Map<String, CellStyle> createStyles(Workbook wb){
+        Map<String, CellStyle> styles = new HashMap<String, CellStyle>();
+        CellStyle style;
+        Font titleFont = wb.createFont();
+        titleFont.setFontHeightInPoints((short)18);
+        titleFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFont(titleFont);
+        styles.put("title", style);
+
+        Font monthFont = wb.createFont();
+        monthFont.setFontHeightInPoints((short)11);
+        monthFont.setColor(IndexedColors.WHITE.getIndex());
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setFont(monthFont);
+        style.setWrapText(true);
+        styles.put("header", style);
+
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setWrapText(true);
+        style.setBorderRight(CellStyle.BORDER_THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(CellStyle.BORDER_THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderTop(CellStyle.BORDER_THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(CellStyle.BORDER_THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        styles.put("cell", style);
+
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
+        styles.put("formula", style);
+
+        style = wb.createCellStyle();
+        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
+        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
+        styles.put("formula_2", style);
+
+        return styles;
+    }
+
+    public static void exports(String[] titles, Object[][] sample_data) {
         Workbook wb;
-        if(args.length > 0 && args[0].equals("-xls")) wb = new HSSFWorkbook();
-        else wb = new XSSFWorkbook();
+        //if(args.length > 0 && args[0].equals("-xls")) 
+        	//wb = new HSSFWorkbook();else 
+        wb = new XSSFWorkbook();
         Map<String, CellStyle> styles = createStyles(wb);
         Sheet sheet = wb.createSheet("Examsheet");
         PrintSetup printSetup = sheet.getPrintSetup();
@@ -92,64 +145,11 @@ public class Examrecords {
         // Write the output to a file
         String file = "Examrecord.xls";
         if(wb instanceof XSSFWorkbook) file += "x";
+       
+        try {
         FileOutputStream out = new FileOutputStream(file);
         wb.write(out);
         out.close();
-    }
-
-    private static Map<String, CellStyle> createStyles(Workbook wb){
-        Map<String, CellStyle> styles = new HashMap<String, CellStyle>();
-        CellStyle style;
-        Font titleFont = wb.createFont();
-        titleFont.setFontHeightInPoints((short)18);
-        titleFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
-        style = wb.createCellStyle();
-        style.setAlignment(CellStyle.ALIGN_CENTER);
-        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        style.setFont(titleFont);
-        styles.put("title", style);
-
-        Font monthFont = wb.createFont();
-        monthFont.setFontHeightInPoints((short)11);
-        monthFont.setColor(IndexedColors.WHITE.getIndex());
-        style = wb.createCellStyle();
-        style.setAlignment(CellStyle.ALIGN_CENTER);
-        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        style.setFillForegroundColor(IndexedColors.GREY_50_PERCENT.getIndex());
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-        style.setFont(monthFont);
-        style.setWrapText(true);
-        styles.put("header", style);
-
-        style = wb.createCellStyle();
-        style.setAlignment(CellStyle.ALIGN_CENTER);
-        style.setWrapText(true);
-        style.setBorderRight(CellStyle.BORDER_THIN);
-        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderLeft(CellStyle.BORDER_THIN);
-        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderTop(CellStyle.BORDER_THIN);
-        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
-        style.setBorderBottom(CellStyle.BORDER_THIN);
-        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-        styles.put("cell", style);
-
-        style = wb.createCellStyle();
-        style.setAlignment(CellStyle.ALIGN_CENTER);
-        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
-        styles.put("formula", style);
-
-        style = wb.createCellStyle();
-        style.setAlignment(CellStyle.ALIGN_CENTER);
-        style.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        style.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
-        style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-        style.setDataFormat(wb.createDataFormat().getFormat("0.00"));
-        styles.put("formula_2", style);
-
-        return styles;
+        } catch(Exception e) { System.out.println(e); }
     }
 }
