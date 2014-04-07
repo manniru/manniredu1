@@ -11,6 +11,7 @@ java.text.DecimalFormat,
 java.util.Date,
 java.text.DateFormat,
 com.mannir.edu.Application,
+com.mannir.SmsVoice,
 java.sql.ResultSetMetaData"
 %><%! Application ap; int id=0; %>
 <% if(request.getParameter("id") != null) { id = Integer.parseInt(request.getParameter("id")); } System.out.println("ID="+id); %>
@@ -22,6 +23,7 @@ java.sql.ResultSetMetaData"
 else { ap = (Application) db.get(new Application(), 1); }
 %>
 <% if(request.getParameter("submit") != null) {
+	String mobileno = request.getParameter("mobileno");
 	int nextid = getId("application");
 	String pin = request.getParameter("pin");
 	String username = request.getParameter("username");
@@ -51,7 +53,11 @@ else { ap = (Application) db.get(new Application(), 1); }
 	ap.setDateapp(cdate);
 	ap.setRole("applicant");
 	
-	if(id==0) { db.save(ap); System.out.println("Record Saved!"); }
+	if(id==0) { db.save(ap);
+	String message = "You have succesfull Register at Mannir Cloud Education System, your username is "+username+", password is "+password;
+	SmsVoice sv = new SmsVoice();
+	String sms = sv.send(mobileno, message);
+	System.out.println(sms); }
 	else { db.update(ap); System.out.println("Record Updated!"); }
 	
 
