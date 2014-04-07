@@ -9,16 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <description>Sample Servlet</description>
-    <display-name>MannireduServlet</display-name>
-    <servlet-name>MannireduServlet</servlet-name>
-    <servlet-class>com.mannir.edu.MannireduServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MannireduServlet</servlet-name>
-    <url-pattern>/manniredu</url-pattern>
-  </servlet-mapping>
   
   <servlet><servlet-name>Excel</servlet-name><servlet-class>com.mannir.servlets.Excel</servlet-class></servlet>
   <servlet-mapping><servlet-name>Excel</servlet-name><url-pattern>/excel/*</url-pattern></servlet-mapping>
