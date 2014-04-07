@@ -1,15 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="com.google.appengine.api.utils.SystemProperty" %>
 
 <%
 String url = null;
-if (SystemProperty.environment.value()==SystemProperty.Environment.Value.Production) {
+//if (SystemProperty.environment.value()==SystemProperty.Environment.Value.Production) {
   // Load the class that provides the new "jdbc:google:mysql://" prefix.
-  Class.forName("com.mysql.jdbc.GoogleDriver");
+  try { Class.forName("com.mysql.jdbc.GoogleDriver");
   url = "jdbc:google:mysql://your-project-id:your-instance-name/guestbook?user=root";
-} else { Class.forName("com.mysql.jdbc.Driver"); url = "jdbc:mysql://127.0.0.1:3306/manniredu?user=root";
+} 
+catch(Exception e) { 
+	Class.forName("com.mysql.jdbc.Driver"); url = "jdbc:mysql://127.0.0.1:3306/manniredu?user=root";
 }
 
 Connection conn = DriverManager.getConnection(url);
