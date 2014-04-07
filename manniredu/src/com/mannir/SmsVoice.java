@@ -17,7 +17,7 @@ public class SmsVoice {
 		SmsVoice sms = new SmsVoice();
 		//String status = sms.send("601123064474", "Mannir SmsVoice Java Class");
 		SmsVoice call = new SmsVoice();
-		//call.call("601123064474", "Thank you for calling Mannir eSystems Limited");
+		call.call("601123064474", "Thank you for calling Mannir eSystems Limited");
 	}
 
 	public String send(String mobileno, String msg) {

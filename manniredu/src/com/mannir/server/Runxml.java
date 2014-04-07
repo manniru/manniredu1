@@ -13,6 +13,10 @@ import org.mortbay.jetty.webapp.WebAppContext;
 
 
 public class Runxml {
+	//static String webxml = "src/main/webapp/WEB-INF/web.xml";
+	static String webxml = "WebContent/WEB-INF/web.xml";
+	//static String webdir = "src/main/webapp";
+	static String webdir = "WebContent";
 	//private static String dbURL = "jdbc:derby://localhost:1527/db;create=true;user=admin;password=13131";
 	//public static Connection cn;
  
@@ -26,8 +30,8 @@ public class Runxml {
 
 		final JettyServer jettyServer = new JettyServer();
 	       WebAppContext context = new WebAppContext();
-	       context.setDescriptor("src/main/webapp/WEB-INF/web.xml");
-	       context.setResourceBase("src/main/webapp");
+	       context.setDescriptor(webxml);
+	       context.setResourceBase(webdir);
 	       context.setContextPath("/");
 	       context.setParentLoaderPriority(true);
 		jettyServer.setHandler(context);

@@ -13,6 +13,7 @@ java.text.DateFormat,
 com.mannir.edu.Db,
 com.mannir.edu.Pin,
 com.mannir.edu.Application,
+com.mannir.SmsVoice,
 java.sql.ResultSetMetaData"
 %>
 <% if(request.getParameter("op1") != null) {
@@ -28,13 +29,23 @@ java.sql.ResultSetMetaData"
 			   while(pr.hasMoreElements()) {
 			      String paramName = (String)pr.nextElement();
 			      String value =  request.getParameter(paramName);
-			     if(paramName.substring(0, 2).equals("id")) sb.append(value+",");
+			      ///System.out.println(paramName+"=="+value);
+			     if(paramName.substring(0, 2).equals("id")) { 
+			    	 sb.append(value+",");
+			    	 //System.out.println("value"+value);
+			    	 Application ap = db.getApplication(Integer.parseInt(value));
+			    	 SmsVoice sv = new SmsVoice();
+			    	 String msg = "Congratulation "+ap.getFirstname()+" Your have been Given Admission in Mannir Education Cloud System";
+			    	 sv.call(ap.getMobileno(), msg);
+			    	 System.out.println("call:"+ap.getMobileno()+"=="+msg);
+			     }
 			 a++;
 			   }
 			   sb.deleteCharAt(sb.length()-1).toString();
 			   sb.append(")");
 			   String sql = sb.toString();
 			   db.runSql(cn, sql);
+			   
 			   // UPDATE application SET admission='1' WHERE id IN(1,3,5)
 }
 

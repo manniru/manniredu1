@@ -26,19 +26,23 @@ public class Db {
 	public static void main(String[] args) {
 		//Db db = new Db("emb","localhost","admin","13131","manniredu");
 		Db db = new Db("mysql","localhost","root","","manniredu");
+		Application ap = db.getApplication(23);
+		System.out.println(ap.getMobileno());
 		
-		Object[][] oo = db.regData("registration");
-				
-		for(int a=0; a<oo.length; a++) {
-		for(int i=0; i<oo[a].length; i++) { System.out.print(oo[a][i]+"\t"); }
-		System.out.println();
-		}
+
 		
 
 	}
 	
 	public void test4() {
+		/**
+		Object[][] oo = db.regData("registration");
 		
+		for(int a=0; a<oo.length; a++) {
+		for(int i=0; i<oo[a].length; i++) { System.out.print(oo[a][i]+"\t"); }
+		System.out.println();
+		}
+		*/
 		//System.out.println(db.getlastid("application"));
 		
 		//for(Registration rg : db.getAllRegistration()) { System.out.println(rg.getRid()); }
@@ -236,6 +240,37 @@ public class Db {
 		System.out.println(sql);
 		} catch(Exception e) { System.out.println(e); }
 		
+	}
+	
+	public Application getApplication(int id) {
+		Application ap = new Application();
+		try { ResultSet rs = cn.createStatement().executeQuery("SELECT * FROM APPLICATION WHERE id="+id);
+		while(rs.next()) {
+			ap.setId(Integer.parseInt(rs.getString("id")));
+			ap.setPin(rs.getString("pin"));
+			ap.setUsername(rs.getString("username"));
+			ap.setPassword(rs.getString("password"));
+			ap.setMobileno(rs.getString("mobileno"));
+			ap.setEmail(rs.getString("email"));
+			ap.setFirstname(rs.getString("firstname"));
+			ap.setLastname(rs.getString("lastname"));
+			ap.setGender(rs.getString("gender"));
+			ap.setDob(rs.getString("dob"));
+			ap.setPicture(rs.getString("picture"));
+			ap.setAddress(rs.getString("address"));
+			ap.setState(rs.getString("state"));
+			ap.setCountry(rs.getString("country"));
+			ap.setSchool(rs.getString("school"));
+			ap.setExam(rs.getString("exam"));
+			ap.setGrade(rs.getString("grade"));
+			ap.setProgram(rs.getString("program"));
+			ap.setAdmission(rs.getString("admission"));
+			ap.setDateapp(rs.getString("dateapp"));
+		}
+	} catch (SQLException ex) { System.err.println(ex.getMessage()); }
+
+		
+		return ap;
 	}
 
 

@@ -26,7 +26,10 @@ String AccountSid = "AC0b56c1b6b1ff87e0caaf2c41ee5a7380";
 String AuthToken = "c09e3ae21d61af8c9ad0f24a61c932ea";
 String CallerID = "+14242851118";
 String ToCall = "+601123064474";
-String Url="http://twimlets.com/message?Message%5B0%5D=Hello%20from%20my%20java%20application.&Message%5B1%5D=http%3A%2F%2Fcom.twilio.music.electronica.s3.amazonaws.com%2Fteru_-_110_Downtempo_Electronic_4.mp3";
+String message = "Thank you for calling Mannir eSystems Limited";
+String msg = message.replaceAll(" ", "%20");
+String Url="http://twimlets.com/message?Message%5B0%5D="+msg;
+//String Url="http://twimlets.com/message?Message%5B0%5D=Hello%20from%20my%20java%20application.&Message%5B1%5D=http%3A%2F%2Fcom.twilio.music.electronica.s3.amazonaws.com%2Fteru_-_110_Downtempo_Electronic_4.mp3";
 TwilioRestClient client = new TwilioRestClient(AccountSid, AuthToken, null);
 //build map of post parameters
 Map params = new HashMap();
@@ -46,4 +49,4 @@ else { System.out.println(resp.getResponseText()); }
 %>
 
 
-<% out.println("SMS Sending status is "+ou); %>
+<% out.println("MannirServer Voice call in progress!"+ou); %>
