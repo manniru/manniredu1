@@ -86,7 +86,7 @@ public class Exams extends HttpServlet {
 		Map<String, Object[]> data = new HashMap<String, Object[]>();
 		data.put("1", new Object[] {"Reg No.", "Fullname", "Course", "CU", "CA", "Exam", "Total", "Grade", "Point", "GP", "Remarks"});
         
-    	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+    	//DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
     	
     	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
     	
@@ -158,7 +158,7 @@ public class Exams extends HttpServlet {
     			        e1.setProperty("remarks",rm);
     			        e1.setProperty("fullname",fn);
 
-    			        ds.put(e1);
+    			        //ds.put(e1);
     			        
     			      	 data.put(a+"", new Object[] {fn, rn, cs, cu+"", ca+"", ex+"", tt+"", gr, pt, gp, rm});
 
