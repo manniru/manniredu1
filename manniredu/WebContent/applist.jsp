@@ -48,7 +48,7 @@ for(Application ap : db.getAllApplication()) {
 	out.println("<td style='border:1px solid black;'>"+ap.getGrade()+"</td>");
 	out.println("<td style='border:1px solid black;'>"+ap.getProgram()+"</td>");
 	out.println("<td style='border:1px solid black;'>"+ap.getAdmission()+"</td>");
-	out.println("<td style='border:1px solid black;'><a href='/appview.jsp?id="+ap.getId()+"'>View</a> - <a href='/appedit.jsp?id="+ap.getId()+"'>Edit</a> - <a href='/apppdf.jsp?id="+ap.getId()+"' target='new'>Print</a></td>");
+	out.println("<td style='border:1px solid black;'><a href='/appview.jsp?id="+ap.getId()+"'>View</a></td>");
 	out.println("</tr>");
 	sn++;
 	

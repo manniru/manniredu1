@@ -64,7 +64,7 @@ java.sql.ResultSetMetaData"
 <form method="post">
 <div class="container-inline">
 
- <select name="action" class="form-select"><option value="admadd" selected="selected">Add Admission</option><option value="admdel">Delete Admission</option><option value="sendsms">Send SMS</option></select>
+ <select name="action" class="form-select"><option value="admadd" selected="selected">Add Admission</option><option value="admdel">Delete Admission</option><option value="sendsms">Send Admission</option></select>
 
 <input type="submit" name="op1" value="Submit"  class="form-submit" />
 </div>

@@ -82,10 +82,8 @@ else { ap = (Application) db.get(new Application(), 1); }
 
 <form action=""  accept-charset="UTF-8" method="post" id="webform-client-form-11" class="webform-client-form">
 <div><fieldset id="f1">
-<legend><b>Application Form</b></legend><div id="webform-component-account-information--account-info" class="webform-layout-box horiz"><div class="webform-component webform-component-textfield" id="webform-component-account-information--account-info--application-pin"><div class="form-item" id="edit-submitted-account-information-account-info-application-pin-wrapper">
-<div style="float:left;margin-right:2px;"><label>Application No</label><select name="gender" class="form-select" id="gender">
-<option value="<%= ap.getGender() %>" selected="selected"><%= ap.getGender() %></option><option value="M">Male</option><option value="F">Female</option></select></div>
-<div style="float:left;margin-right:2px;"><label>Registration PIN</label><input type="text" name="pin" id="pin" size="20" value="<%= ap.getPin() %>" class="form-text" /></div>
+<legend><b>Registration Form</b></legend><div id="webform-component-account-information--account-info" class="webform-layout-box horiz"><div class="webform-component webform-component-textfield" id="webform-component-account-information--account-info--application-pin"><div class="form-item" id="edit-submitted-account-information-account-info-application-pin-wrapper">
+<div style="float:left;margin-right:2px;"><label>Application No</label><input type="text" name="pin" id="pin" size="10" value="<%= ap.getPin() %>" class="form-text" /></div>
 <div style="float:left;margin-right:2px;"><label>Year</label><select name="year" class="form-select" id="year" ><option value="<%= ap.getGrade() %>" selected="selected"><%= ap.getGrade() %></option>
 <option value="1">1</option><option value="1">2</option><option value="1">3</option></select></div>
 <div style="float:left;margin-right:2px;"><label>Semester</label><select name="grade" class="form-select" id="grade" ><option value="<%= ap.getGrade() %>" selected="selected"><%= ap.getGrade() %></option>

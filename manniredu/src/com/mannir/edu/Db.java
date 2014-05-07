@@ -526,4 +526,29 @@ public class Db {
 		return oo;
 	}
 	
+	public static ArrayList<Reg> listReg(int uid) {
+		ArrayList<Reg> list = new ArrayList<Reg>();		
+		try { ResultSet rs = null;
+			if(uid==0) { rs = cn.createStatement().executeQuery("SELECT * FROM REG"); }
+			else { rs = cn.createStatement().executeQuery("SELECT * FROM REG WHERE appid="+uid); }
+			while(rs.next()) {
+				Reg rg = new Reg();
+				rg.setId(Integer.parseInt(rs.getString("id")));
+				rg.setAppid(Integer.parseInt(rs.getString("appid")));
+				rg.setLevel(Integer.parseInt(rs.getString("level")));
+				rg.setSemester(Integer.parseInt(rs.getString("semester")));
+				rg.setCode(rs.getString("code"));
+				rg.setCa(Integer.parseInt(rs.getString("ca")));
+				rg.setExam(Integer.parseInt(rs.getString("exam")));
+				rg.setTotal(Integer.parseInt(rs.getString("total")));
+				rg.setGrade(rs.getString("grade"));
+				rg.setPoints(Double.parseDouble(rs.getString("points")));
+				rg.setGp(Double.parseDouble(rs.getString("gp")));
+				rg.setRemarks(rs.getString("remarks"));
+				list.add(rg);
+			}
+		} catch (Exception ex) { System.out.println(ex); }
+		return list;
+	}
+	
 }

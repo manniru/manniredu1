@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>690</x>
+      <y>0</y>
+      <w>540</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>com.mannir.edu::Db
+--
+-cn = null: Connection
+-dbtype, dbhost, dbuser, dbpass, dbname: String
+--
++Db(String dbtype, String dbhost, String dbuser, String dbpass, String dbname): ctor
++main(String[] args): void
++test4(): void
++test3(): void
++test2(): void
++test1(): void
++connect(): Connection
++getColumns(Connection cn, String tb): String[]
++getData(String tb): Object[][]
++runSql(Connection cn, String sql): void
++getApplication(int id): Application
++getAllApplication(): ArrayList&lt;Application&gt;
++getAllRegistration(): ArrayList&lt;Registration&gt;
++save(Object obj): void
++update(Object obj): void
++get(Object obj, int id): Object
++set(Object object, String fieldName, Object fieldValue): boolean
++list(String tb): ArrayList&lt;String&gt;
++query(Connection cn, String sql): void
++sop(Object obj): void
++getlastid(String tb): int
++regData(String tb): Object[][]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>190</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>com.mannir.edu::Course
+--
++cid: int
++code: String
++title: String
++cu: int
++pid: int
+--
++getCid(): int
++setCid(int cid): void
++getCode(): String
++setCode(String code): void
++getTitle(): String
++setTitle(String title): void
++getCu(): int
++setCu(int cu): void
++getPid(): int
++setPid(int pid): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>200</x>
+      <y>0</y>
+      <w>200</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>com.mannir.edu::Pin
+--
++id: int
++pin: String
++type: String
++amount: int
++uid: int
+--
++getId(): int
++setId(int id): void
++getPin(): String
++setPin(String pin): void
++getType(): String
++setType(String type): void
++getAmount(): int
++setAmount(int amount): void
++getUid(): int
++setUid(int uid): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>410</x>
+      <y>0</y>
+      <w>270</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>com.mannir.edu::Program
+--
++pid: int
++name: String
++duration: String
++department: String
++school: String
+--
++getPid(): int
++setPid(int pid): void
++getName(): String
++setName(String name): void
++getDuration(): String
++setDuration(String duration): void
++getDepartment(): String
++setDepartment(String department): void
++getSchool(): String
++setSchool(String school): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>10</x>
+      <y>470</y>
+      <w>1220</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>com.mannir.edu::Excel
+--
++key = "", uid = "", regno = "", password = "", mobileno = "", fullname = "", school = "", department = "", programme = "", session = "", courses1 = "", courses2 = "", bankname = "", code = "", pincode = "", tellerno = "", amount = "", prgpaid = "", datereg: String
+-cn: Connection
+--
++doPost(HttpServletRequest request, HttpServletResponse response): void
+#doGet(HttpServletRequest request, HttpServletResponse response): void
++gd(String type, int cu, int ca, int ex): String
++course(String cd, String tp): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>10</x>
+      <y>330</y>
+      <w>340</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>com.mannir.edu::Examrecords
+--
+--
++main(String[] args): void
+-createStyles(Workbook wb): Map&lt;String, CellStyle&gt;
++exports(String[] titles, Object[][] sample_data): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>360</x>
+      <y>330</y>
+      <w>320</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>com.mannir.edu::MannireduServlet
+--
+--
++doGet(HttpServletRequest req, HttpServletResponse resp): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

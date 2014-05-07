@@ -1,8 +1,4 @@
 <%@include file="header.jsp" %>
-<link  href="/mutiselect/article1.css" rel="stylesheet" />
-<script src="/mutiselect/jquery-1.js"></script>
-<script src="/mutiselect/mutiselect.js"></script>
-<script type="text/javascript" src="/js/collapse.js?Z"></script>
 <%@
 page import="javax.servlet.http.*,
 java.io.*,
@@ -15,6 +11,7 @@ java.text.DecimalFormat,
 java.util.Date,
 java.text.DateFormat,
 com.mannir.edu.Application,
+com.mannir.SmsVoice,
 java.sql.ResultSetMetaData"
 %><%! Application ap; int id=0; %>
 <% if(request.getParameter("id") != null) { id = Integer.parseInt(request.getParameter("id")); } System.out.println("ID="+id); %>
@@ -26,48 +23,7 @@ java.sql.ResultSetMetaData"
 else { ap = (Application) db.get(new Application(), 1); }
 %>
 <% if(request.getParameter("submit") != null) {
-	String regpin = request.getParameter("regpin");
-	String lv = request.getParameter("level");
-	String sm = request.getParameter("semester");
-	String courses1 = "";
-	StringBuilder nb = new StringBuilder();
-	//try {
-		 String[] c1 = request.getParameterValues("courses1[]");
-		 for(String cs: c1) {
-			 String uid = session.getAttribute("uid").toString();
-			 System.out.println(uid+"\t"+lv+"\t"+sm+"\t"+cs);
-			 try { cn.createStatement().executeUpdate("INSERT INTO reg(appid, level,semester,code) VALUES("+uid+","+lv+","+sm+",'"+cs+"')");
-			 } catch(Exception e) { System.out.println(e); }
-			 //db.runSql(cn, "INSERT INTO registration(aid,pinid,code) VALUES("+uid+",'"+regpin+"','"+code+"')");
-		 }
-		 /**
-		 if (c1.length > 0) { 
-		 for (String n : c1) { 
-			 nb.append("").append(n.replaceAll("'", "\\\\'")).append(",");
-			 }
-		 nb.deleteCharAt(nb.length() - 1); 
-		 courses1 = nb.toString();
-		 } else { courses1 = ""; }
-		} catch(Exception e4) { }
-	*/
-	//System.out.println(nb);
-	/**
-	String[] cs = nb.toString().split(",");
-	for(String cid: cs) {
-//		
-		
-	}
-	*/
-	/**
-	Enumeration en = request.getParameterNames();
-	while(en.hasMoreElements()) {
-		String pr = (String) en.nextElement();
-		String vl = request.getParameter(pr);
-		System.out.println(pr+"="+vl);
-	}
-	*/
-	
-	/**
+	String mobileno = request.getParameter("mobileno");
 	int nextid = getId("application");
 	String pin = request.getParameter("pin");
 	String username = request.getParameter("username");
@@ -94,28 +50,32 @@ else { ap = (Application) db.get(new Application(), 1); }
 	ap.setGrade(request.getParameter("grade"));
 	ap.setProgram(request.getParameter("program"));
 	ap.setAdmission("");
-	ap.setDateapp(cdate);	
+	ap.setDateapp(cdate);
+	ap.setRole("applicant");
 	
-	if(id==0) { db.save(ap); System.out.println("Record Saved!"); }
+	if(id==0) { db.save(ap);
+	String message = "You have succesfull Register at Mannir Cloud Education System, your username is "+username+", password is "+password;
+	SmsVoice sv = new SmsVoice();
+	String sms = sv.send(mobileno, message);
+	System.out.println(sms); }
 	else { db.update(ap); System.out.println("Record Updated!"); }
 	
 
+	session.setAttribute("uid", db.getlastid("application"));
 	session.setAttribute("username", username);
 	session.setAttribute("password", password);
-	//session.setAttribute("usertype", "APP");
+	session.setAttribute("role", "applicant");
 	response.setStatus(response.SC_MOVED_TEMPORARILY); 
 	response.setHeader("Location", "/appview.jsp?id="+nextid);
 	// else  { response.setStatus(response.SC_MOVED_TEMPORARILY); response.setHeader("Location", "appedit.jsp?msg=Invalid Pincode, try again!"); }
-*/
+
 } %>
 
 <td valign="top"><div id="main">
-<h1 class="title">User Form</h1>
+<h1 class="title">Application Form</h1>
 <div class="tabs"><ul class="tabs primary">
 <li><a href="appview.jsp?id=<%= ap.getId() %>" class="active">View</a></li>
 <li class="active"><a href="appedit.jsp?id=<%= ap.getId() %>">Edit</a></li>
-<li ><a href="apppdf.jsp?id=<%= ap.getId() %>">Print</a></li>
-<li ><a href="applist.jsp">List</a></li>
 
 </ul></div>
 
@@ -124,11 +84,11 @@ else { ap = (Application) db.get(new Application(), 1); }
 <div class="node">
 
 <form action=""  accept-charset="UTF-8" method="post" id="webform-client-form-11" class="webform-client-form">
-<fieldset id="f1" class='collapsible'>
-<legend>User Registration</legend>
-<div class="form-item">
+<div><fieldset id="f1">
+<legend><b>Application Form</b></legend><div id="webform-component-account-information--account-info" class="webform-layout-box horiz"><div class="webform-component webform-component-textfield" id="webform-component-account-information--account-info--application-pin"><div class="form-item" id="edit-submitted-account-information-account-info-application-pin-wrapper">
+<div style="float:left;margin-right:2px;"><label>Application PIN</label><input type="text" name="pin" id="pin" size="20" value="<%= ap.getPin() %>" class="form-text" /></div>
 <div style="float:left;margin-right:2px;"><label>Username</label><input type="text" name="username" id="username" size="20" value="<%= ap.getUsername() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Password</label><input type="text" name="password" id="password" size="20" value="<%= ap.getPassword() %>" class="form-text" /></div>
+<div style="float:left;margin-right:2px;"><label>Password</label><input type="password" name="password" id="password" size="20" value="<%= ap.getPassword() %>" class="form-text" /></div>
 <div style="float:left;margin-right:2px;"><label>Mobile No</label><input type="text" name="mobileno" id="mobileno" size="20" value="<%= ap.getMobileno() %>" class="form-text" /></div>
 <div style="float:left;margin-right:2px;"><label>Email</label><input type="text" name="email" id="email" size="20" value="<%= ap.getEmail() %>" class="form-text" /></div>
 <div style="clear:both"></div><br>
@@ -147,50 +107,14 @@ else { ap = (Application) db.get(new Application(), 1); }
 <div style="float:left;margin-right:2px;"><label>Exam Type</label><select name="exam" class="form-select" id="exam" ><option value="<%= ap.getExam() %>" selected="selected"><%= ap.getExam() %></option><% for(String st: db.list("examtype")) { out.println("<option value='"+st+"'>"+st+"</option>"); } %></select></div>
 <div style="float:left;margin-right:2px;"><label>Exam Final Grade</label><select name="grade" class="form-select" id="grade" ><option value="<%= ap.getGrade() %>" selected="selected"><%= ap.getGrade() %></option><% for(String st: db.list("gradetype")) { out.println("<option value='"+st+"'>"+st+"</option>"); } %></select></div>
 <div style="clear:both"></div><br>
-
-</div>
-</fieldset>
-
-<fieldset id='f2' class='collapsible'><legend>Program Registration</legend>
-<div class="form-item">
-<div style="float:left;margin-right:2px;">
-  <label>Application Pin</label><input type="text" name="apppin" id="apppin" size="20" value="<%= ap.getPin() %>" class="form-text" /></div>
-<div style="float:left;margin-right:2px;"><label>Select Program</label>
+<div style="float:left;margin-right:2px;"><label>Program 1</label>
 <select name="program" class="form-select" id="program" ><option value="<%= ap.getProgram() %>" selected="selected"><%= ap.getProgram() %></option>
-<% for(String st: db.list("program")) { out.println("<option value='"+st+"'>"+st+"</option>"); } %></select></div></div></fieldset>
+<% for(String st: db.list("program")) { out.println("<option value='"+st+"'>"+st+"</option>"); } %></select></div>
 
+</div></div></fieldset>
 
-
-
-<fieldset id='f3' class='collapsible'><legend>Module Registration</legend><div class="form-item">
-<div style="float:left;margin-right:2px;"><label>Level</label><select name="level" class="form-select" id="level">
-<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option></select></div>
-<div style="float:left;margin-right:2px;"><label>Semester</label><select name="semester" class="form-select" id="semester">
-<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option></select></div>
-<div style="clear:both"></div>
-<%  
-out.println("<ul class='options'></ul><select onchange='courses1(this);' class='options'>");
-
-//java.net.URL ur =config.getServletContext().getResource("/txt/_courses.txt");
-//BufferedReader rd =new BufferedReader(new InputStreamReader(ur.openStream()));
-
-try { ResultSet rs = cn.createStatement().executeQuery("SELECT * FROM courses");
-while(rs.next()) {
-	String cid = rs.getString("cid");
-	String code = rs.getString("code");
-	String title = rs.getString("title");
-	String cu = rs.getString("cu");
-	out.println("<option value='"+code+"'>"+code+" ("+title+")</option>");
-}
-
-} catch(Exception e) { System.out.println(e); }
-
-
-out.println("</select><img src='/mutiselect/add00000.png' alt='Add' style='vertical-align: middle;' onclick='courses1($(this).prev().get(0));'>");
-%>
-</div></fieldset>
-
+<input type="hidden" name="application" id="application" value=""  />
 <input type="submit" name="submit" id="submit" value="Submit"  class="form-submit" />
-</form>
+</div></form>
 </div></div></td>		
 <%@include file="footer.jsp" %>

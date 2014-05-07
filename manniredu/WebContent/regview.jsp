@@ -13,10 +13,12 @@ java.text.DateFormat,
 com.mannir.edu.Db,
 com.mannir.edu.Pin,
 com.mannir.edu.Application,
+com.mannir.edu.Reg,
 java.sql.ResultSetMetaData"
-%><%! Application ap; %><%
-if(request.getParameter("id") != null) {
-	int id = Integer.parseInt(request.getParameter("id"));
+%><%! Application ap; int userid=0; %><%
+System.out.println(session.getAttribute("uid"));
+if(session.getAttribute("uid") != null) {
+	int id = Integer.parseInt(session.getAttribute("uid").toString()); userid=id;
 	ap = (Application) db.get(new Application(), id);
 	}
 
@@ -24,7 +26,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 %>
 
 <td valign="top"><div id="main">
-<h1 class="title">Application Form</h1>
+<h1 class="title">Registration Form</h1>
 <div class="tabs"><ul class="tabs primary">
 <li class="active" ><a href="appview.jsp?id=<%= ap.getId() %>" class="active">View</a></li>
 <li ><a href="appedit.jsp?id=<%= ap.getId() %>">Edit</a></li>
@@ -34,7 +36,7 @@ else { ap = (Application) db.get(new Application(), 1); }
 <div class="node" align="center">
 <table style="width:700">
 <tr><td><div align="center">
-<h3>APPLICANT INFORMATION</h3>
+<h3>REGISTRATION INFORMATION</h3>
 <table width="600px">
 <tbody>
  <tr class="odd">
@@ -68,6 +70,17 @@ else { ap = (Application) db.get(new Application(), 1); }
   <table><tbody>
   <tr class="odd"><td ><div align="center">Programme First Choice: <strong><%= ap.getProgram() %></strong></div></td></tr>
   <tr class="odd"><td><div align="center">Admission Status: <strong><%= ap.getAdmission() %></strong></div></td></tr>
+  </tbody></table>
+</div></td></tr>
+
+<tr><td><div align="center"><h3>REGISTRATION INFORMATION</h3>
+  <table><tbody>
+  <% for(Reg rg : db.listReg(userid)) {
+	  out.println("<tr class='odd'><td ><div>Module: <strong>"+rg.getCode()+"</strong></div></td><td ><div><strong>"+rg.getTitle(rg.getCode())+"</strong></div></td></tr>");
+  }
+  
+  %>
+  
   </tbody></table>
 </div></td></tr>
 </table>

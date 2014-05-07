@@ -37,7 +37,7 @@
 		<div id="header" class="clear-block">
 			<div class="header-right">
 				<div class="header-left">
-					<div id="logo" style="text-align:left;"><a href="/" title="Home"><img width="80" height="80" src="images/uel.png" alt="Home"></a></div> 
+					<div id="logo" style="text-align:left;"><a href="/" title="Home"><img width="80" height="80" src="images/logo1.png" alt="Home"></a></div> 
 					<div id="name-and-slogan">
                     <h1 id="site-name" align="center">
 							<a href="/" title="Home">Online Education Cloud System</a>
@@ -58,15 +58,12 @@
 			
 <div class="navcont">
 <ul><li class="menu-114 first"><a href="#" title="Home">Home</a></li>
-<li class="menu-115"><a href="#" title="About us">About us</a></li>
-<li class="menu-116"><a href="#" title="Schools">Schools</a></li>
-<li class="menu-117"><a href="#" title="Departments">Departments</a></li>
-<li class="menu-118"><a href="#" title="Programmes">Programmes</a></li>
+<li class="menu-115"><a href="about.jsp" title="About us">About</a></li>
+<li class="menu-116"><a href="schools.jsp" title="Schools">Schools</a></li>
+<li class="menu-117"><a href="departments.jsp" title="Departments">Departments</a></li>
+<li class="menu-118"><a href="programmes.jsp" title="Programmes">Programmes</a></li>
 <li class="menu-119"><a href="appedit.jsp" title="New Application">New Application</a></li>
-<li class="menu-120"><a href="#" title="New Registration">New Registration</a></li>
-<li class="menu-121"><a href="#" title="Admission Requirments">Admission Requirments</a></li>
-<li class="menu-122"><a href="#" title="Admission List">Admission List</a></li>
-<li class="menu-123"><a href="#" title="Contact us">Contact us</a></li>
+<li class="menu-123"><a href="contacts.jsp" title="Contact us">Contact us</a></li>
 </ul>
 </div>
 
@@ -151,23 +148,25 @@ out.println("<h2 class='title'>User login</h2><div class='content'><form action=
 		"<div class='form-item'><label>Password</label><input type='password' name='pass' id='pass' size='15'/></div>"+
 		"<input type='submit' name='login' id='login' value='Log in'  class='form-submit' />"+
 		"<div class='item-list'><ul><li class='first'><a href='register.jsp'>New Applicaton</a></li>"+
-		"<li><a href='regedit.jsp'>New Registration</a></li><li class='last'><a href='#'>Forgot Password</a></li></ul></div></form></div>");
+		"<li class='last'><a href='#'>Forgot Password</a></li></ul></div></form></div>");
 }
 else {
-	out.println("<h2 class='title'>Welcome Mannir</h2><img src='images/mannir.jpg' alt='Picture' />");
+	
 	//out.println("<br><strong>User ID: "+uid+"</strong>");
 	if(session.getAttribute("role").equals("admin")) {
+		out.println("<h2 class='title'>Welcome </h2><img src='images/mannir.jpg' alt='Picture' />");
 		out.println("<h2 class='title'>Admin Menu</h2><ul class='menu'>"+
-				"<li class='leaf first'><a href='pins.jsp'>Generate Pins</a></li>"+
+				//"<li class='leaf first'><a href='pins.jsp'>Generate Pins</a></li>"+
 				"<li class='leaf'><a href='applist.jsp'>List Applications</a></li>"+
 				"<li class='leaf'><a href='admgen.jsp'>Generate Admissions</a></li>"+
-				"<li class='leaf'><a href='admgen.jsp'>List Admissions</a></li>"+
-				"<li class='leaf'><a href='exams.jsp'>List Registration</a></li>"+
+				"<li class='leaf'><a href='algorithms.jsp'>Exam Computation</a></li>"+
+				"<li class='leaf'><a href='results.jsp'>Exam Results</a></li>"+
+				"<li class='leaf'><a href='reg.jsp'>List Registration</a></li>"+
 				"<li class='leaf'><a href='exams.jsp'>Exam Results</a></li>"+
-				"<li class='leaf'><a href='#'>List ExamResults</a></li>"+
-				"<li class='leaf'><a href='#'>Export Records</a></li>"+
-				"<li class='leaf'><a href='#'>Send SMS</a></li>"+
-				"<li class='leaf'><a href='#'>Make Calls</a></li>"+
+				//"<li class='leaf'><a href='#'>List ExamResults</a></li>"+
+				//"<li class='leaf'><a href='#'>Export Records</a></li>"+
+				//"<li class='leaf'><a href='#'>Send SMS</a></li>"+
+				//"<li class='leaf'><a href='#'>Make Calls</a></li>"+
 				"<li class='leaf last'><a href='?q=logout'>Log out</a></li></ul>");
 	}
 	
@@ -175,9 +174,9 @@ else {
 	out.println("<h2 class='title'>Applicant Menu</h2><ul class='menu'>"+
 			"<li class='leaf'><a href='appedit.jsp?id="+uid+"'>Edit Application</a></li>"+
 			"<li class='leaf'><a href='appview.jsp?id="+uid+"'>View Application</a></li>"+
-			"<li class='leaf'><a href='apppdf.jsp?id="+uid+"' target='new'>Print Application</a></li>"+
-			"<li class='leaf'><a href='admpdf.jsp?id="+uid+"' target='new'>Print Admission</a></li>"+
+			"<li class='leaf'><a href='admission.jsp?id="+uid+"'>Admission Status</a></li>"+
 			"<li class='leaf'><a href='useredit.jsp?id="+session.getAttribute("uid")+"'>Course Registration</a></li>"+
+			"<li class='leaf'><a href='regview.jsp'>View Registration</a></li>"+
 			"<li class='leaf last'><a href='?q=logout'>Log out</a></li></ul>");
 	}
 
